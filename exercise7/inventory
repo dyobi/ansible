@@ -1,0 +1,22 @@
+all:
+  hosts:
+    web01:
+      ansible_host: 192.168.10.13
+      ansible_ssh_private_key_file: ../clientkey.pem
+    db01:
+      ansible_host: 192.168.10.14
+      ansible_ssh_private_key_file: ../dbkey.pem
+
+  children:
+    webservers:
+      hosts:
+        web01:
+    dbservers:
+      hosts:
+        db01:
+    dc_local:
+      children:
+        webservers:
+        dbservers:
+      vars:
+        ansible_user: vagrant
